@@ -1,8 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import FooterComp from "$lib/components/FooterComp.svelte";
     import SnippetEditorComp from "$lib/components/SnippetEditorComp.svelte";
-    import HeaderComp from "../lib/components/HeaderComp.svelte";
     import SmallScreenComp from "$lib/components/SmallScreenComp.svelte";
     import LoaderComp from "$lib/components/LoaderComp.svelte";
 
@@ -20,12 +18,10 @@
     {#if loading}
         <LoaderComp />
     {:else}
-        <HeaderComp />
         {#if screenWidth < 800}
             <SmallScreenComp />
         {:else}
             <SnippetEditorComp />
         {/if}
-        <FooterComp />
     {/if}
 </div>
