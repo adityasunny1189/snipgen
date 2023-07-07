@@ -4,10 +4,10 @@
 
     let showToast: boolean = false;
 
-    let triggerCommand: string;
-    let description: string;
-    let code: string;
-    let snippetResponse: string | undefined;
+    let triggerCommand: string = "";
+    let description: string = "";
+    let code: string = "";
+    let snippetResponse: string = "";
 
     const copyCode = (code: string | undefined) => {
         if (code !== undefined) {
@@ -57,12 +57,10 @@
             <div>
                 <div class=" relative my-4">
                     {#if snippetResponse !== undefined}
-                        <div class="max-h-96 overflow-x-auto overflow-y-auto">
-                            <pre class="my-4 p-4 break-all bg-[#1e1e1e] text-white rounded-lg"><code class="language-go">{@html Prism.highlight(snippetResponse, Prism.languages.go)}</code></pre>
-                            <button on:click={() => copyCode(snippetResponse)} class="absolute top-4 right-4 p-2 bg-[#1e1e1e] text-white rounded">
-                                <i class="fa fa-clone"></i>
-                            </button>
-                        </div>
+                        <pre class="my-6 p-4 break-all h-96 overflow-y-auto overflow-x-auto bg-[#1e1e1e] text-white rounded-lg"><code class="language-go">{@html Prism.highlight(snippetResponse, Prism.languages.go)}</code></pre>
+                        <button on:click={() => copyCode(snippetResponse)} class="absolute top-2 right-2 p-2 bg-[#1e1e1e] text-white rounded">
+                            <i class="fa fa-clone"></i>
+                        </button>
                     {/if}
                 </div>
             </div>
