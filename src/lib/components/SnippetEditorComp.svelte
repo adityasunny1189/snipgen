@@ -18,7 +18,7 @@
 
     let sublimeSnippet: string = `<snippet>
     <content><![CDATA[
-        ${code}
+${code}
     ]]></content>
     <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
     <tabTrigger>${triggerCommand}</tabTrigger>
@@ -79,7 +79,7 @@
         
         sublimeSnippet = `<snippet>
     <content><![CDATA[
-        ${code}
+${code}
     ]]></content>
     <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
     <tabTrigger>${triggerCommand}</tabTrigger>
