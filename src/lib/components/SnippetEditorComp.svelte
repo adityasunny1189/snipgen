@@ -7,6 +7,7 @@
     let triggerCommand: string = "";
     let description: string = "";
     let code: string = "";
+    let snippet: string = "";
     let vsCodeSnippet: string = `{
     "${triggerCommand}": {
         "prefix": "${triggerCommand}",
@@ -88,6 +89,12 @@ ${code}
     <description>${description}</description>
 </snippet>`;
         console.log(sublimeSnippet);
+        
+        if(vscodeTabActive) {
+            snippet = vsCodeSnippet;
+        } else {
+            snippet = sublimeSnippet;
+        }
     }
 
 </script>
@@ -130,17 +137,12 @@ ${code}
             </div>
             <!-- Snippet Output -->
             <div class=" h-full relative mt-8">
-                {#if vscodeTabActive}
-                    <pre class="my-4 p-4 break-all h-5/6 overflow-y-auto overflow-x-auto bg-[#1e1e1e] text-white rounded-lg"><code class="language-json">{@html Prism.highlight(vsCodeSnippet, Prism.languages.json)}</code></pre>
-                    <button on:click={() => copyCode(vsCodeSnippet)} class="absolute top-2 right-2 p-2 bg-[#1e1e1e] text-white rounded">
+                {#key snippet}
+                    <pre class="my-4 p-4 break-all h-5/6 overflow-y-auto overflow-x-auto bg-[#1e1e1e] text-white rounded-lg"><code class="language-json">{@html Prism.highlight(snippet, Prism.languages.json)}</code></pre>
+                    <button on:click={() => copyCode(snippet)} class="absolute top-2 right-2 p-2 bg-[#1e1e1e] text-white rounded">
                         <i class="fa fa-clone"></i>
                     </button>
-                {:else}
-                    <pre class="my-4 p-4 break-all h-5/6 overflow-y-auto overflow-x-auto bg-[#1e1e1e] text-white rounded-lg"><code class="language-json">{@html Prism.highlight(sublimeSnippet, Prism.languages.json)}</code></pre>
-                    <button on:click={() => copyCode(sublimeSnippet)} class="absolute top-2 right-2 p-2 bg-[#1e1e1e] text-white rounded">
-                        <i class="fa fa-clone"></i>
-                    </button>
-                {/if}
+                {/key}
             </div>
         </div>
     </div>
