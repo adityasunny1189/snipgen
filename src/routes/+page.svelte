@@ -14,7 +14,7 @@
     });
 </script>
 
-<div class="">
+<div class=" h-4/5">
     {#if loading}
         <LoaderComp />
     {:else}

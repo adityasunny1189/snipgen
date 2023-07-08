@@ -11,7 +11,7 @@
     });
 </script>
 
-<div>
+<div data-theme="black" class="  h-screen">
     <HeaderComp />
     <slot />
     <FooterComp /> 
