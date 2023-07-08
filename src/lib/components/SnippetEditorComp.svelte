@@ -7,7 +7,25 @@
     let triggerCommand: string = "";
     let description: string = "";
     let code: string = "";
-    let snippetResponse: string = "";
+    let vsCodeSnippet: string = `{
+    "${triggerCommand}": {
+        "prefix": "${triggerCommand}",
+        "body": [
+            ${code}
+        ],
+        "description": "${description}"
+}`;
+
+    let sublimeSnippet: string = `<snippet>
+    <content><![CDATA[
+        ${code}
+    ]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>${triggerCommand}</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <!-- <scope>source.python</scope> -->
+    <description>${description}</description>
+</snippet>`;
 
     let vscodeTabActive: boolean = true;
     let sublimeTabActive: boolean = false;
@@ -33,6 +51,31 @@
         }
     }
 
+    $: {
+        console.log(code);
+        vsCodeSnippet = `{
+    "${triggerCommand}": {
+        "prefix": "${triggerCommand}",
+        "body": [
+            ${code}
+        ],
+        "description": "${description}"
+}`;
+        console.log(vsCodeSnippet);
+        
+        sublimeSnippet = `<snippet>
+    <content><![CDATA[
+        ${code}
+    ]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>${triggerCommand}</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <!-- <scope>source.python</scope> -->
+    <description>${description}</description>
+</snippet>`;
+        console.log(sublimeSnippet);
+    }
+
 </script>
 
 <div data-theme="dark" class=" container mx-auto h-full shadow-[0_0px_30px_10px_rgba(255,255,255,0.3)] p-4 my-8 artboard artboard-horizontal">
@@ -50,7 +93,7 @@
             </div>
             <!-- code block -->
             <div class=" h-full mt-8">
-                <textarea bind:value={snippetResponse} class="textarea textarea-bordered w-full h-5/6" placeholder="Code goes here"></textarea>
+                <textarea bind:value={code} class="textarea textarea-bordered w-full h-5/6" placeholder="Code goes here"></textarea>
             </div>
         </div>
         <div class="divider divider-horizontal" />
@@ -73,9 +116,14 @@
             </div>
             <!-- Snippet Output -->
             <div class=" h-full relative mt-8">
-                {#if snippetResponse !== undefined}
-                    <pre class="my-4 p-4 break-all h-5/6 overflow-y-auto overflow-x-auto bg-[#1e1e1e] text-white rounded-lg"><code class="language-json">{@html Prism.highlight(snippetResponse, Prism.languages.json)}</code></pre>
-                    <button on:click={() => copyCode(snippetResponse)} class="absolute top-2 right-2 p-2 bg-[#1e1e1e] text-white rounded">
+                {#if vscodeTabActive}
+                    <pre class="my-4 p-4 break-all h-5/6 overflow-y-auto overflow-x-auto bg-[#1e1e1e] text-white rounded-lg"><code class="language-json">{@html Prism.highlight(vsCodeSnippet, Prism.languages.json)}</code></pre>
+                    <button on:click={() => copyCode(vsCodeSnippet)} class="absolute top-2 right-2 p-2 bg-[#1e1e1e] text-white rounded">
+                        <i class="fa fa-clone"></i>
+                    </button>
+                {:else}
+                    <pre class="my-4 p-4 break-all h-5/6 overflow-y-auto overflow-x-auto bg-[#1e1e1e] text-white rounded-lg"><code class="language-json">{@html Prism.highlight(sublimeSnippet, Prism.languages.json)}</code></pre>
+                    <button on:click={() => copyCode(sublimeSnippet)} class="absolute top-2 right-2 p-2 bg-[#1e1e1e] text-white rounded">
                         <i class="fa fa-clone"></i>
                     </button>
                 {/if}
