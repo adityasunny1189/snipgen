@@ -51,13 +51,27 @@
         }
     }
 
+    const vscodeCodeParser = (code : string) => {
+        code = code.replaceAll("\"", "\\\"");
+        let codeArray = code.split("\n");
+        let codeString = "";
+        for (let i = 0; i < codeArray.length; i++) {
+            if (i === codeArray.length - 1) {
+                codeString += `"${codeArray[i]}"`;
+            } else {
+                codeString += `"${codeArray[i]}",\n`;
+            }
+        }
+        return codeString;
+    }
+
     $: {
         console.log(code);
         vsCodeSnippet = `{
     "${triggerCommand}": {
         "prefix": "${triggerCommand}",
         "body": [
-            ${code}
+            ${vscodeCodeParser(code)}
         ],
         "description": "${description}"
 }`;
