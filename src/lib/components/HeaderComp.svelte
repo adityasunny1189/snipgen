@@ -6,7 +6,7 @@
 
 <div data-theme="black" class="navbar p-4 bg-base-100">
     <div class="flex-1">
-      <a class="btn btn-ghost normal-case text-4xl">SnipGen</a>
+      <a href="/" class="btn btn-ghost normal-case text-4xl">SnipGen</a>
     </div>
     {#if $screenSizeStore > 800}
         <div class="flex-none">
